@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         _lives--;
         if (_lives < 1)
         {
-            //communicate with spawnmanager
+            //communicate with spawnmanager0
             _spawnManager.OnPlayerDeath();
             // let them know to stop spawning
             

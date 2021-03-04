@@ -23,9 +23,6 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    // spawn enemies every 5 seconds
-    // create a coroutine 
-    // while loop
 
     IEnumerator SpawnRoutine()
     {
