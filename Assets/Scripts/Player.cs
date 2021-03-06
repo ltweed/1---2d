@@ -10,13 +10,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
-    private float _laserOffset = 0.8f;
+    private GameObject _tripleShot;
+    [SerializeField]
+    private float _laserOffset = 1.05f;
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private bool _isTripleShotActive = true;
+
+    // variable for triple shot active
 
 
     // Start is called before the first frame update
@@ -44,9 +50,20 @@ public class Player : MonoBehaviour
 
     private void FireLaser()
     {
-
+        if (_isTripleShotActive)
+        {
+            Instantiate(_tripleShot, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
+        }
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
+        
+       // destroy laser
+       // offset triple shot so it comes out of proper location on ship
+        
+
 
     }
 
