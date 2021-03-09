@@ -5,7 +5,9 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemy;
+    private GameObject _enemyPrefab;
+    [SerializeField]
+    private GameObject _tripleShotPowerupPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
 
@@ -13,7 +15,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
     // Update is called once per frame
@@ -24,16 +27,27 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-11f, 11f), 10, 0);
-            //Instantiate enemy prefab
-            GameObject newEnemy = Instantiate(_enemy, posToSpawn, Quaternion.identity);
+            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5f);
         }
+    }
+
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while(_stopSpawning == false)
+        {
+            Vector3 postoSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Instantiate(_tripleShotPowerupPrefab, postoSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3, 8));
+        }
+        // every 3-7 seconds, spawn a powerup
+
     }
 
     public void OnPlayerDeath()

@@ -4,22 +4,51 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float _speed = 3.0f;
+    // ID for powerups
+    // 0 Triple shot
+    // 1 Speed
+    // 2 Shields
+
+    [SerializeField]
+    private int powerupID;
+
 
     // Update is called once per frame
     void Update()
     {
-
-        // move down at speed 3 serializefield
-        // when we leave the screen, destroy this object
-        
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        if(transform.position.y < -6.5)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    //ontriggercollision
-    //only collectible by player (use tags)
-    // on collected destroy
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            Player _player = collision.transform.gameObject.GetComponent<Player>();
+            if (_player != null)
+            {
+                if (powerupID == 0)
+                {
+                    _player.TripleShotActive();
+                }
+                else if(powerupID ==1)
+                {
+                    //play speed powerup
+                }
+                else if(powerupID==2)
+                {
+                    //play shields powerup
+                }
+
+            }
+            Destroy(this.gameObject);
+        }
+    }
+
+
 }

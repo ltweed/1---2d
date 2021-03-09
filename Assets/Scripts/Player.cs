@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     private SpawnManager _spawnManager;
     [SerializeField]
-    private bool _isTripleShotActive = true;
+    private bool _isTripleShotActive = false;
 
     // variable for triple shot active
 
@@ -60,11 +60,6 @@ public class Player : MonoBehaviour
         }
         _canFire = Time.time + _fireRate;
         
-       // destroy laser
-       // offset triple shot so it comes out of proper location on ship
-        
-
-
     }
 
     private void CalculateMovement()
@@ -100,4 +95,19 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void TripleShotActive()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(PowerDown());
+
+    }
+
+    IEnumerator PowerDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
+    }
+
+
 }
