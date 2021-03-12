@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     [SerializeField]
     private bool _isTripleShotActive = false;
+    [SerializeField]
+    private bool _isSpeedBoostActive = false;
+    [SerializeField]
+    private float _speedMultiplier = 2;
 
     // variable for triple shot active
 
@@ -68,7 +72,16 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        transform.Translate(direction * _speed * Time.deltaTime);
+
+        if (_isSpeedBoostActive == false)
+        { 
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(direction * _speed * _speedMultiplier * Time.deltaTime);
+
+        }
 
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -5.5f, 0), 0);
@@ -103,11 +116,27 @@ public class Player : MonoBehaviour
 
     }
 
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        StartCoroutine(SpeedBoostPowerDown());
+
+        // TODO:  currently does not "refresh" time when a duplicate powerup is collected while
+        // the first one is still running
+
+    }
+
     IEnumerator PowerDown()
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShotActive = false;
     }
 
+    IEnumerator SpeedBoostPowerDown()
+    {
+        
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+    }
 
 }

@@ -32,19 +32,18 @@ public class Powerup : MonoBehaviour
             Player _player = collision.transform.gameObject.GetComponent<Player>();
             if (_player != null)
             {
-                if (powerupID == 0)
+                switch(powerupID)
                 {
-                    _player.TripleShotActive();
+                    case 0:
+                        _player.TripleShotActive();
+                        break;
+                    case 1:
+                        _player.SpeedBoostActive();
+                        break;
+                    case 2:
+                        Debug.Log("shields collected");
+                        break;
                 }
-                else if(powerupID ==1)
-                {
-                    //play speed powerup
-                }
-                else if(powerupID==2)
-                {
-                    //play shields powerup
-                }
-
             }
             Destroy(this.gameObject);
         }
