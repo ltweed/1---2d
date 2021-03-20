@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -29,8 +30,13 @@ public class Player : MonoBehaviour
     private bool _isShieldActive = false;
     [SerializeField]
     private GameObject Shields;
+    [SerializeField]
+    private int _score;
+    [SerializeField]
+    private UI_Manager _ui_Manager;
 
-    // need access to shields visualizer
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +47,13 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("spawn manager is null");
         }
+        _ui_Manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        if(_ui_Manager == null)
+        {
+            Debug.LogError("spawn manager is null");
+            
+        }
+
     }
 
     // Update is called once per frame
@@ -110,7 +123,7 @@ public class Player : MonoBehaviour
             return;
         }
         _lives--;
-
+        _ui_Manager.UpdateLives(_lives);
         if (_lives < 1)
         {
             //communicate with spawnmanager0
@@ -118,6 +131,8 @@ public class Player : MonoBehaviour
             // let them know to stop spawning
             
             Destroy(this.gameObject);
+
+
         }
     }
 
@@ -159,10 +174,14 @@ public class Player : MonoBehaviour
         _isSpeedBoostActive = false;
     }
 
-    IEnumerator ShieldsPowerDown()
+    public void AddScore(int points)
     {
-        yield return new WaitForSeconds(5.0f);
-        _isShieldActive = false;
+        _score += points;
+        Debug.Log("In Player/AddScore");
+        _ui_Manager.UpdateScore(_score);
+
     }
+
+
 
 }
