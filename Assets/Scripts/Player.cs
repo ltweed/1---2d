@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     private int _score;
     [SerializeField]
     private UI_Manager _ui_Manager;
+    [SerializeField]
+    private GameObject _rightEngine, _leftEngine;
+    
 
 
 
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
             Debug.LogError("spawn manager is null");
             
         }
+
 
     }
 
@@ -123,6 +127,19 @@ public class Player : MonoBehaviour
             return;
         }
         _lives--;
+
+        if(_lives==2)
+        {
+            _rightEngine.SetActive(true);
+        }
+        if(_lives == 1)
+        {
+            _leftEngine.SetActive(true);
+        }
+
+        // if lives == 2 enable right engine
+        // if lives == 1 enable left engine
+
         _ui_Manager.UpdateLives(_lives);
         if (_lives < 1)
         {

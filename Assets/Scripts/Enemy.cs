@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject);
             if (_player != null)
             {
-                Debug.Log("in Enemy/OnTriggerEnter2D, player != null");
+
                 _player.AddScore(10);
              
             }
