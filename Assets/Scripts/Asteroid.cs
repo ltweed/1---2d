@@ -11,6 +11,8 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class Asteroid : MonoBehaviour
         {
             Debug.LogError("_animator is null");
         }
+
         
     }
 

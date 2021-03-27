@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   powerupID: 1
+  _audioClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!95 &2325309919497047779
 Animator:
   serializedVersion: 3
@@ -147,7 +148,7 @@ Animator:
   m_GameObject: {fileID: 7858522439110898044}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 087390ae942ee844cbef975a0711e50b, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

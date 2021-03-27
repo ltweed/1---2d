@@ -13,6 +13,9 @@ public class Powerup : MonoBehaviour
 
     [SerializeField]
     private int powerupID;
+    [SerializeField]
+    private AudioClip _audioClip;
+
 
 
     // Update is called once per frame
@@ -29,9 +32,12 @@ public class Powerup : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            AudioSource.PlayClipAtPoint(_audioClip, new Vector3(0,0,-10));
             Player _player = collision.transform.gameObject.GetComponent<Player>();
             if (_player != null)
             {
+  
+
                 switch(powerupID)
                 {
                     case 0:
@@ -44,6 +50,7 @@ public class Powerup : MonoBehaviour
                         _player.ShieldsActive();
                         break;
                 }
+                
             }
             Destroy(this.gameObject);
         }
